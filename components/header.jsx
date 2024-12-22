@@ -6,8 +6,11 @@ import Link from "next/link";
 import { PenBox } from "lucide-react";
 import { URL_PATHS } from "@/lib/helperVariables";
 import UserMenu from "./userMenu";
+import { checkUser } from "@/lib/helperFunctions";
 
-const Header = () => {
+const Header = async () => {
+  await checkUser();
+
   return (
     <header className="container mx-auto">
       <nav className="flex justify-between gap-4 p-4">
