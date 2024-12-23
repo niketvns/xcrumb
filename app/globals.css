@@ -17,7 +17,8 @@ body {
 }
 
 .cl-internal-1dauvpw,
-.cl-userButtonPopoverFooter {
+.cl-userButtonPopoverFooter,
+.cl-organizationSwitcherPopoverFooter {
   display: none;
 }
 

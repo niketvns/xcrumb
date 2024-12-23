@@ -7,6 +7,7 @@ import { PenBox } from "lucide-react";
 import { URL_PATHS } from "@/lib/helperVariables";
 import UserMenu from "./userMenu";
 import { checkUser } from "@/lib/helperFunctions";
+import UserLoading from "./userLoading";
 
 const Header = async () => {
   await checkUser();
@@ -44,6 +45,7 @@ const Header = async () => {
           </SignedIn>
         </div>
       </nav>
+      <UserLoading />
     </header>
   );
 };
