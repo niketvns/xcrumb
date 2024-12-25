@@ -1,7 +1,9 @@
 import React from "react";
 
-const ProjectDetailsPage = () => {
-  return <div>Project Details Page</div>;
+const ProjectDetailsPage = async ({ params }) => {
+  const { projectId } = await params;
+
+  return <div>Project Details: {projectId}</div>;
 };
 
 export default ProjectDetailsPage;
