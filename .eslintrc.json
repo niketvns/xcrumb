@@ -1,0 +1,30 @@
+{
+  "ignorePatterns": ["dist/*", "*.fragment.generated.tsx", "*.generated.tsx"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier"],
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "prettier",
+    "next",
+    "plugin:storybook/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "rules": {
+    "import/named": 0,
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-console": "warn",
+    "no-magic-numbers": [
+      "error",
+      {
+        "ignoreArrayIndexes": true,
+        "ignoreDefaultValues": true,
+        "ignore": [0, 1, 2, 3]
+      }
+    ]
+  }
+}
