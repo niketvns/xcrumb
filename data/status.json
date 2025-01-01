@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Todo",
+        "key": "TODO"
+    },
+    {
+        "name": "In Progress",
+        "key": "IN_PROGRESS"
+    },
+    {
+        "name": "In Review",
+        "key": "IN_REVIEW"
+    },
+    {
+        "name": "Bug Fixing",
+        "key": "BUG_FIXING"
+    },
+    {
+        "name": "In QA",
+        "key": "IN_QA"
+    },
+    {
+        "name": "Done",
+        "key": "DONE"
+    }
+]

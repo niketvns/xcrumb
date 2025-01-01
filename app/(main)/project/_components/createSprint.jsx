@@ -49,7 +49,6 @@ const SprintCreationForm = ({
   const {
     data: sprint,
     loading: createSprintLoading,
-    error: createSprintError,
     fn: createSprintFn,
   } = useFetch(createSprint);
 
@@ -66,10 +65,8 @@ const SprintCreationForm = ({
     if (sprint) {
       toast.success("Sprint created successfully");
       router.refresh();
-    } else if (createSprintError) {
-      toast.error(createSprintError.message);
     }
-  }, [createSprintError, sprint]);
+  }, [sprint]);
 
   return (
     <>

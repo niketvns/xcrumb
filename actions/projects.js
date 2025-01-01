@@ -46,22 +46,26 @@ export const getProjects = async (orgId) => {
 
   if (!userId) throw new Error("Unauthorized");
 
-  const user = await db.user.findUnique({
-    where: {
-      clerkUserId: userId,
-    },
-  });
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        clerkUserId: userId,
+      },
+    });
 
-  if (!user) {
-    throw new Error("User not found");
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const projects = db.project.findMany({
+      where: { organizationId: orgId },
+      orderBy: { createdAt: "desc" },
+    });
+
+    return projects;
+  } catch (error) {
+    throw new Error(error.message);
   }
-
-  const projects = db.project.findMany({
-    where: { organizationId: orgId },
-    orderBy: { createdAt: "desc" },
-  });
-
-  return projects;
 };
 
 export const deleteProject = async (projectId) => {
@@ -75,25 +79,29 @@ export const deleteProject = async (projectId) => {
     throw new Error("Only organization admins can delete Projects");
   }
 
-  const project = await db.project.findUnique({
-    where: {
-      id: projectId,
-    },
-  });
+  try {
+    const project = await db.project.findUnique({
+      where: {
+        id: projectId,
+      },
+    });
 
-  if (!project || project.organizationId !== orgId) {
-    throw new Error(
-      "Project not found or you don't have permission to delete it"
-    );
+    if (!project || project.organizationId !== orgId) {
+      throw new Error(
+        "Project not found or you don't have permission to delete it"
+      );
+    }
+
+    await db.project.delete({
+      where: {
+        id: projectId,
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    throw new Error(error.message);
   }
-
-  await db.project.delete({
-    where: {
-      id: projectId,
-    },
-  });
-
-  return { success: true };
 };
 
 export const getProject = async (projectId) => {
@@ -103,36 +111,40 @@ export const getProject = async (projectId) => {
     throw new Error("Unauthorized");
   }
 
-  const user = await db.user.findUnique({
-    where: {
-      clerkUserId: userId,
-    },
-  });
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        clerkUserId: userId,
+      },
+    });
 
-  if (!user) {
-    throw new Error("User not found");
-  }
+    if (!user) {
+      throw new Error("User not found");
+    }
 
-  const project = await db.project.findUnique({
-    where: {
-      id: projectId,
-    },
-    include: {
-      sprints: {
-        orderBy: {
-          createdAt: "desc",
+    const project = await db.project.findUnique({
+      where: {
+        id: projectId,
+      },
+      include: {
+        sprints: {
+          orderBy: {
+            createdAt: "desc",
+          },
         },
       },
-    },
-  });
+    });
 
-  if (!project) {
-    return null;
+    if (!project) {
+      return null;
+    }
+
+    if (project.organizationId !== orgId) {
+      return null;
+    }
+
+    return project;
+  } catch (error) {
+    throw new Error(error.message);
   }
-
-  if (project.organizationId !== orgId) {
-    return null;
-  }
-
-  return project;
 };

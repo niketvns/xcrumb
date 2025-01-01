@@ -12,7 +12,6 @@ const ProjectDetailsPage = async ({ params }) => {
 
   return (
     <div className="container mx-auto">
-      {/* sprint creation */}
       <SprintCreationForm
         projectTitle={project.name}
         projectKey={project.key}
@@ -20,7 +19,6 @@ const ProjectDetailsPage = async ({ params }) => {
         sprintKey={(project?.sprints?.length ?? 0) + 1}
       />
 
-      {/* sprint board */}
       {project?.sprints?.length > 0 ? (
         <SprintBoard
           sprints={project.sprints}
